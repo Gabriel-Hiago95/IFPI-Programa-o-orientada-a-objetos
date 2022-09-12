@@ -1,14 +1,14 @@
 '''Utilizando o processo de abstração, implementar uma classe que represente uma consulta médica.
 Execução:
 - Criar um menu principal para manipulação das consultas médicas criadas.
-opções: 
+opções:
 1 - Nova consulta (agendamento)
 2- Pagar Consulta
 3- Cancelar consulta
 4- Agendar retorno
 5- Relatório de consultas realizadas no mes por médico
 6- Relatório de faturamento da Clinica por mes
-OBS: 
+OBS:
 1- Cada médico recebe R$ 200 por consulta realizada
 2- Valor da consulta: R$ 300
 3- utilizar todos os recursos vistos até o momento.'''
@@ -81,7 +81,7 @@ class consulta_medica:
                     break
 
     def cancelar_consulta(self, codigo):
-        while True:            
+        while True:
             if codigo not in CONSULTAS:
                 print('Consulta não encontrada, digite outro código...')
             else:
@@ -129,9 +129,34 @@ class consulta_medica:
     def relatorio_faturamento(self):
         pass
 
+consulta = None
 def main():
-    global LETRAS, NUMEROS, MEDICOS, CONSULTAS, PACIENTE, INFOA, INFOB, INFOC
-    pass
+    global LETRAS, NUMEROS, MEDICOS, CONSULTAS, PACIENTE, INFOA, INFOB, INFOC, consulta
+    opcao = ''
+    while opcao != 'N':
+        print('''========== MENU PRINCIPAL ==========
+        1 - Nova consulta (agendamento)
+        2- Pagar Consulta
+        3- Cancelar consulta
+        4- Agendar retorno
+        5- Relatório de consultas realizadas no mes por médico
+        6- Relatório de faturamento da Clinica por mes''')
+
+        opc = int(input('Informe a opção desejada: ').strip())
+        if opc == 1:
+            med = input('Informe o nome do médico que deseja se consultar: ').strip()
+            if med not in MEDICOS:
+                print('Nome do médico não existe, digite novamente...')
+            else:
+                pac = input('Informe seu nome: ').strip()
+                dia = int(input('Informe o dia da consulta').strip())
+                mes = int(input('Informe o mes da consulta').strip())
+                ano = int(input('Informe o ano da consulta').strip())
+                consulta = consulta_medica(med, pac)
+                consulta.nova_consulta(dia, mes, ano)
+        elif opc == 2:
+            pass
+        opcao = int(input('Deseja realizar mais alguma operação? (S/N): ').strip())
 
 if __name__ == '__main__':
     main()
