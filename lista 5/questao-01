@@ -1,1 +1,114 @@
+'''Questao-01: Reescreva a Classe Bicicleta descrita no exercício anterior, agora utilizando construtores com
+parâmetros opcionais. Crie dois ou mais objetos de formas diferentes e imprima os valores de
+seus atributos.
+Considerar como parâmetros obrigatórios os parâmetros: peso, altura, cor,
+aro. Considerar os seguintes valores padrões para os atributos:
+Veloc_atual:0
+altura_cela:0
+calibragem_pneus:20'''
 
+
+class bicicleta():
+    def __init__(self, peso, altura, cor, aro, calibragem_pneus = 20, marca = 'houston'):
+        self.peso = peso
+        self.altura = altura
+        self.veloc_atual = 0
+        self.veloc_max = 200
+        self.cor = cor
+        self.aro = aro
+        self.altura_cela = 0
+        self.calibragem_pneus = calibragem_pneus
+        self.marca = marca
+
+    def pedalar(self, velocp):
+        if velocp > self.veloc_max:
+            self.veloc_atual = 200
+            return f'A bicileta atingiu sua velocidade máxima e está em movimento... sua velocidade agora é de {self.veloc_atual}'
+        else:
+            self.veloc_atual = velocp
+            return f'A bicileta está em movimento... sua velocidade agora é de {self.veloc_atual}'
+
+    def frear(self, velocf):
+        if self.veloc_atual > velocf and self.veloc_atual != 0:
+            self.veloc_atual -= velocf
+            return f'A bicicleta reduziu sua velocidade para {self.veloc_atual}'
+        elif self.veloc_atual == 0:
+            self.veloc_atual = 0
+            return f'A bicicleta já está parada! sua velocidade é de {self.veloc_atual}'
+        else:
+            return 'A bicicleta não pode diminuir a velocidade por que o valor informado é maior que a velocidade atual dela'
+
+    def parar(self):
+        if self.veloc_atual != 0:
+            self.veloc_atual = 0
+            return 'Bicicleta parada!'
+        else:
+            return 'A bicicleta já está parada!'
+
+    def regular_cela(self, h):
+        if self.veloc_atual == 0:
+            if h > 30:
+                self.altura_cela = 30
+                return f'Limite máximo de altura atingido!\nAltura da cela ajustada para {self.altura_cela}'
+            elif h < 0:
+                self.altura_cela = 0
+                return f'Altura da cela não pode ser menor que zero!\nAltura da cela ajustada para {self.altura_cela}'
+            else:
+                self.altura_cela = h
+                return f'Altura da cela ajustada para {self.altura_cela}'
+        else:
+            return 'A cela não pôde ser ajustada...'
+
+    def calibrar_pneus(self, calibr):
+        if self.veloc_atual == 0:
+            if calibr > 80:
+                self.calibragem_pneus = 80
+                return f'Limite máximo de calibragem atingido!\nCalibragem dos pneus ajustada para {self.calibragem_pneus}'
+            elif calibr < 20:
+                self.calibragem_pneus = 20
+                return f'Limite mínimo de calibragem atingido!\nCalibragem dos pneus ajustada para {self.calibragem_pneus}'
+            else:
+                self.calibragem_pneus = calibr
+                return f'Calibragem dos pneus ajustada para {self.calibragem_pneus}'
+        else:
+            return 'A calibragem dos pneus não pôde ser feita...'
+
+bike = bicicleta(13, 110, 'azul', 26)
+
+print('Caso 1 ===== ', end = '')
+print(bike.pedalar(50))
+
+print('Caso 2 ===== ', end = '')
+print(bike.pedalar(300))
+
+print('Caso 3 ===== ', end = '')
+print(bike.frear(80))
+
+print('Caso 4 ===== ', end = '')
+print(bike.parar())
+
+print('Caso 5 ===== ', end = '')
+print(bike.frear(20))
+
+print('Caso 6 ===== ', end = '')
+print(bike.pedalar(100))
+
+print('Caso 7 ===== ', end = '')
+print(bike.regular_cela(25))
+
+print('Caso 8 ===== ', end = '')
+print(bike.calibrar_pneus(60))
+
+print('Caso 9 ===== ', end = '')
+print(bike.parar())
+
+print('Caso 10 =====')
+print(bike.calibrar_pneus(200))
+print(bike.regular_cela(150))
+
+print('Caso 11 =====')
+print(bike.calibrar_pneus(45))
+print(bike.regular_cela(25))
+
+print('Caso 12 ===== ', end = '')
+print(bike.pedalar(110))
