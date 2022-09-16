@@ -20,10 +20,11 @@ class radiofm:
         print('antena habilitada...')
 
     def ligar(self):
+        est = list(Estacoes.keys())
         self.ligado = True
         self.volume = self.vol_min
         if self.antena_habilitada == True:
-            self.frequencia_atual = self.Estacoes.keys()[0]
+            self.frequencia_atual = est[0]
             self.estacao_atual = Estacoes[self.frequencia_atual]
             print(f'Estação Atual: {self.frequencia_atual} -> {Estacoes[self.frequencia_atual]}')
         else:
@@ -73,7 +74,7 @@ class radiofm:
                 self.estacao_atual = Estacoes[self.frequencia_atual]
                 print(f'Estação Atual: {self.frequencia_atual} -> {self.estacao_atual}')
             elif valor_freq == 0:
-                for chave in Estacoes:
+                for chave in list(Estacoes.keys()):
                     if self.frequencia_atual != chave:
                         self.frequencia_atual = chave
                         break
@@ -86,6 +87,12 @@ class radiofm:
 meu_radio = radiofm(100)
 
 print('caso 1 ===== ', end = '')
+meu_radio.ligar()
+
+print('caso 1.1 ===== ', end = '')
+meu_radio.habilitar_antena()
+
+print('caso 1.2 ===== ', end = '')
 meu_radio.ligar()
 
 print('caso 2 ===== ', end = '')
