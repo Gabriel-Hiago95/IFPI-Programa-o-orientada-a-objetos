@@ -123,10 +123,8 @@ class pessoa:
             print('casamento realizado com sucesso!')
             print(f'{self.__nome} está casado(a) com {obj_pessoa.__nome}')
     
-    def morrer(self, obj_pessoa):
+    def morrer(self):
         self.__estado = 'morto(a)'
-        obj_pessoa.__estado_civil = 'viúvo(a)'
-        obj_pessoa.__conjuje = None
         print(f'{self.__nome} morreu')
 
 def main():
@@ -145,7 +143,7 @@ def main():
     maria.envelhecer()
     
     print('caso c =====> ', end = '')
-    pedro.crescer()
+    pedro.crescer(2)
     
     print('caso d =====> ', end = '')
     bia.casar(carlos)
