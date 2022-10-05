@@ -60,6 +60,9 @@ class pessoa:
     @conjuje.setter
     def conjuje(self, conjuje):
         self.__conjuje = conjuje
+
+    def divorciar(self):
+        pass
     
     def mostrar_idade(self):
         if self.__estado == 'vivo(a)':
@@ -104,27 +107,36 @@ class pessoa:
             print(f'{self.__nome} não pode mais crescer pois está com 21 anos ou mais')
     
     def casar(self, obj_pessoa):
-        if self.__estado_civil.lower() == 'casado(a)':
-            print(f'casamento não realizado, {self.__nome} é casado(a).')
-        elif obj_pessoa.__estado_civil.lower() == 'casado(a)':
-            print(f'casamento não realizado, {obj_pessoa.__nome} é casado(a).')
-        elif self.__idade < 18:
-            print(f'casamento não permitido. {self.__nome} é de menor.')
-        elif obj_pessoa.__idade < 18:
-            print(f'casamento não permitido. {obj_pessoa.__nome} é de menor.')
-        elif self.__estado == 'morto(a)':
-            print(f'operação não permitida. {self.__nome} está morto(a).')
-        elif obj_pessoa.__estado == 'morto(a)':
-            print(f'operação não permitida. {obj_pessoa.__nome} está morto(a).')
+        if type(obj_pessoa) == pessoa:
+            if self.__estado == 'morto(a)':
+                print(f'operação não permitida. {self.__nome} está morto(a).')
+            elif obj_pessoa.__estado == 'morto(a)':
+                print(f'operação não permitida. {obj_pessoa.__nome} está morto(a).')
+            elif self.__estado_civil.lower() == 'casado(a)':
+                print(f'casamento não realizado, {self.__nome} é casado(a).')
+            elif obj_pessoa.__estado_civil.lower() == 'casado(a)':
+                print(f'casamento não realizado, {obj_pessoa.__nome} é casado(a).')
+            elif self.__idade < 18:
+                print(f'casamento não permitido. {self.__nome} é de menor.')
+            elif obj_pessoa.__idade < 18:
+                print(f'casamento não permitido. {obj_pessoa.__nome} é de menor.')
+            else:
+                self.__conjuje = obj_pessoa
+                self.__estado_civil = 'casado(a)'
+                obj_pessoa.__estado_civil = 'casado(a)'
+                print(f'{self.__nome} está casado(a) com {obj_pessoa.__nome}')
         else:
-            self.__conjuje = obj_pessoa
-            self.__estado_civil = 'casado(a)'
-            obj_pessoa.__estado_civil = 'casado(a)'
-            print('casamento realizado com sucesso!')
-            print(f'{self.__nome} está casado(a) com {obj_pessoa.__nome}')
+            print('Operação não realizada!')
+    
+    def conjuje(self):
+        return self.__conjuje
     
     def morrer(self):
         self.__estado = 'morto(a)'
+        if self.__estado_civil == 'casado(a)':
+            conjuje = self.__conjuje
+            if conjuje.__estado == 'vivo(a)':
+                conjuje.__estado_civil = 'viúvo(a)'
         print(f'{self.__nome} morreu')
 
 def main():
