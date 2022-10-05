@@ -43,7 +43,7 @@ class pessoa:
     
     @idade.setter
     def idade(self, idade):
-        self.__idade = idade
+        print('Sem permissão')
         
     @peso.setter
     def peso(self, peso):
@@ -72,7 +72,7 @@ class pessoa:
             self.__idade += 1
             if self.__idade < 21:
                 self.__altura += 5
-                print(f'{self.__nome} está com {self.__idade} e {self.__altura}cm de altura')
+                print(f'{self.__nome} está com {self.__idade} anos e {self.__altura}cm de altura')
             print(f'{self.__nome} envelheceu mais 1 ano, sua idade agora é {self.__idade} anos')
         else:
             print(f'Operação não realizada. {self.__nome} está morto(a)')
@@ -113,9 +113,9 @@ class pessoa:
         elif obj_pessoa.__idade < 18:
             print(f'casamento não permitido. {obj_pessoa.__nome} é de menor.')
         elif self.__estado == 'morto(a)':
-            print(f'operação não permitida. {self.__nome} está falecido(a).')
+            print(f'operação não permitida. {self.__nome} está morto(a).')
         elif obj_pessoa.__estado == 'morto(a)':
-            print(f'operação não permitida. {obj_pessoa.__nome} está falecido(a).')
+            print(f'operação não permitida. {obj_pessoa.__nome} está morto(a).')
         else:
             self.__conjuje = obj_pessoa
             self.__estado_civil = 'casado(a)'
