@@ -62,7 +62,15 @@ class pessoa:
         self.__conjuje = conjuje
 
     def divorciar(self):
-        pass
+        conjuje = self.__conjuje
+        if self.__estado == 'vivo(a)':
+            if self.__estado_civil == 'casado(a)':
+                self.__estado_civil = 'divorciado(a)'
+                conjuje.__estado_civil = 'divorciado(a)'
+                self.__conjuje = None
+                conjuje.__conjuje = None
+        print('Divórcio efetuado')
+            
     
     def mostrar_idade(self):
         if self.__estado == 'vivo(a)':
