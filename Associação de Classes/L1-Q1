@@ -1,0 +1,160 @@
+from datetime import *
+
+consultas = []
+
+class paciente:
+    def __init__(self, nome, cpf):
+        self.__nome = nome
+        self.__cpf = cpf
+        self.__saldo = 0
+
+    @property
+    def saldo(self):
+        return self.__saldo
+
+    @property
+    def nome(self):
+        return self.__nome
+
+    @property
+    def cpf(self):
+        return self.__cpf
+
+    def pagar_divida(self):
+        self.__saldo -= 300
+
+    def aumentar_divida(self):
+        self.__saldo += 300
+
+class medico:
+    def __init__(self, nome, crm, especialidade):
+        self.__nome = nome
+        self.__especialidade = especialidade
+        self.__crm = crm
+        self.__salario = 0
+
+    @property
+    def salario(self):
+        return self.__salario
+
+    @property
+    def nome(self):
+        return self.__nome
+
+    @property
+    def especialidade(self):
+        return self.__especialidade
+
+    @property
+    def crm(self):
+        return self.__crm
+
+    def mostrar_salario(self):
+        print(f'O salário do(a) Dr.(a) {self.__nome} é igual a {self.__salario}')
+
+    def pagamento_por_consulta(self):
+        self.__salario += 200
+
+
+class consulta_medica:
+    def __init__(self, data_consulta, paciente, medico):
+        if data_consulta < datetime.today():
+            # raise Exception.ValueError('data antiga!')
+            raise ValueError('Data antiga!')
+            self.__data_consulta = None
+            print("data antiga!")
+        else:
+            self.__data_consulta = data_consulta
+        self.__paciente = paciente
+        self.__medico = medico
+        self.__pago = False
+        self.__valor = 300
+        self.__data_retorno = None
+        self.__paciente.aumentar_divida()
+
+    @property
+    def data_consulta(self):
+        return self.__data_consulta
+
+    @property
+    def paciente(self):
+        return self.__paciente
+
+    @paciente.setter
+    def paciente(self, pacient):
+        if type(pacient) == paciente:
+            self.__paciente = pacient
+        else:
+            print('valor inválido para paciente!')
+
+    @property
+    def medico(self):
+        return self.__medico
+
+    @medico.setter
+    def medico(self, medic):
+        if type(medic) == medico:
+            self.__medico = medic
+        else:
+            print('valor inválido para médico!')
+
+    @property
+    def pago(self):
+        return self.__pago
+
+    @property
+    def data_retorno(self):
+        return self.__data_retorno
+
+    @property
+    def valor(self):
+        return self.__valor
+
+    @valor.setter
+    def valor(self, value):
+        print("operação inválida!")
+
+    def reagendar_consulta(self, data):
+        try:
+            data_v = datetime.strptime(data, "%d/%m/%Y")
+            if data_v > self.__data_consulta:
+                self.__data_consulta = data_v
+            else:
+                print("data antiga!")
+        except:
+            print("erro!")
+
+    def pagar_consulta(self):
+        if self.__pago == True:
+            print('consulta já foi paga!')
+        else:
+            self.__pago = True
+            self.__medico.pagamento_por_consulta()
+            self.paciente.pagar_divida()
+
+    def cancelar_consulta(self):
+        self.__data_consulta = None
+
+    def agendar_retorno(self, data):
+        if self.__pago == True:
+            try:
+                data_v = datetime.strptime(data, "%d/%m/%Y")
+                if data_v > self.__data_consulta:
+                    self.__data_retorno = data_v
+                else:
+                    print("data de retorno tem que ser maior que a data da consulta!")
+            except:
+                print("erro!")
+        else:
+            print("pague a consulta pra poder marcar o retorno!")
+
+
+c = consulta_medica(datetime.strptime("18/09/2022", "%d/%m/%Y"), "Maria", "João")
+c.valor = 1.00
+c.pago = True
+# print(c.data_consulta)
+# c.reagendar_consulta("16/09/2022")
+# print(c.data_consulta)
+# c.pagar_consulta()
+# print(c.pago)
+# c.agendar_retorno("15/09/2022")
